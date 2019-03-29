@@ -94,7 +94,7 @@ class Model{
     }
 }
 
-Model.all().where(['id', 'c_or content'], ['2', 'first']).get()
+Model.all().get()
 //remain to treate the string in values 
 //treat error if he enter many values which are noy in array
 // Model.specific('id', 'content').where(['id', 'content'], [1,'"first"']).get()
