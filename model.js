@@ -31,54 +31,53 @@ class Model{
         }else{
             this.error('make sure to put columns')
         }
-        // let compare = (comparison) ? comparison : ' and '
         return this
     }
     
-    // //where arguments
-    // static where (columns, values) {
+    //where arguments
+    static where (columns, values) {
 
-    //     if (columns && values) {
-    //         if (columns instanceof Array && values instanceof Array) {
-    //             let length = columns.length
-    //             if (length == values.length) {
-    //         select += ' WHERE '
-    //                 for (let i in columns) {
-    //             let column, comparator = 'and', value, sign = ' ='
-    //                     column = columns[i].split(' ')
-    //                     if (column.length == 2) {
-    //                         comparator = column[0].replace('c_', ' ')
+        if (columns && values) {
+            if (columns instanceof Array && values instanceof Array) {
+                let length = columns.length
+                if (length == values.length) {
+            select += ' WHERE '
+                    for (let i in columns) {
+                let column, comparator = 'and', value, sign = ' ='
+                        column = columns[i].split(' ')
+                        if (column.length == 2) {
+                            comparator = column[0].replace('c_', ' ')
                             
-    //                         column = column[1]
-    //                     }
-    //                     i != 0 && i < columns.length ?  select += comparator : ''
-    //                     value = values[i].split(' ')
-    //                     if (value.length >= 2){
-    //                         sign = value[0]
-    //                         if (sign[0] == 's' && sign[1] == '_') {
-    //                             value.splice(0, 1)
-    //                             sign = sign.replace('s_',' ')
-    //                             console.log(sign)
-    //                         }
-    //                     }
+                            column = column[1]
+                        }
+                        i != 0 && i < columns.length ?  select += comparator : ''
+                        value = values[i].split(' ')
+                        if (value.length >= 2){
+                            sign = value[0]
+                            if (sign[0] == 's' && sign[1] == '_') {
+                                value.splice(0, 1)
+                                sign = sign.replace('s_',' ')
+                                console.log(sign)
+                            }
+                        }
                         
-    //                     select += ' ' + column + sign +'  "' + value + '"'
-    //                 }
-    //                 console.log(select)
-    //             }else{
-    //                 this.error( 'colums and values are not equal ny size')
-    //             }
-    //         }else if(!(columns instanceof Array) && !(values instanceof Array)){
-    //             select += ' WHERE ' + columns + ' = ' + values
-    //         }else{
-    //             this.error('not identic maybe array and value given')
-    //         }
-    //     }else{
-    //         tthis.error('make sure to put columns and values')
-    //     }
+                        select += ' ' + column + sign +'  "' + value + '"'
+                    }
+                    console.log(select)
+                }else{
+                    this.error( 'colums and values are not equal ny size')
+                }
+            }else if(!(columns instanceof Array) && !(values instanceof Array)){
+                select += ' WHERE ' + columns + ' = ' + values
+            }else{
+                this.error('not identic maybe array and value given')
+            }
+        }else{
+            tthis.error('make sure to put columns and values')
+        }
 
-    //     return this
-    // }
+        return this
+    }
     
     //run the sql statement or prepared query
     static get(){
@@ -94,7 +93,7 @@ class Model{
     }
 }
 
-Model.specific(['id', 'created_at']).get()
+Model.all().where(['id', 'c_or content'], ['2', 'first']).get()
 //remain to treate the string in values 
 //treat error if he enter many values which are noy in array
 // Model.specific('id', 'content').where(['id', 'content'], [1,'"first"']).get()
