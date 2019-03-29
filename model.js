@@ -14,26 +14,26 @@ class Model{
     }
 
 
-    // // select specific columns
-    // static specific(columns){
-    //     if (columns) {
-    //         if (columns instanceof Array) {
-    //             let length = columns.length
-    //                 for (let i in columns) {
-    //                     select += ' ' + columns[i]
-    //                     select += (i != 1 && i < length-1) ? ' , ' : ''
-    //                 }
-    //                 columnsSetted != columnsSetted
-    //         }else{
-    //             select += ' ' + columns
-    //         }
-    //         select += ' FROM ' + table
-    //     }else{
-    //         this.error('make sure to put columns')
-    //     }
-    //     // let compare = (comparison) ? comparison : ' and '
-    //     return this
-    // }
+    // select specific columns
+    static specific(columns){
+        if (columns) {
+            if (columns instanceof Array) {
+                let length = columns.length
+                    for (let i in columns) {
+                        select += ' ' + columns[i]
+                        select += (i != 1 && i < length-1) ? ' , ' : ''
+                    }
+                    columnsSetted != columnsSetted
+            }else{
+                select += ' ' + columns
+            }
+            select += ' FROM ' + table
+        }else{
+            this.error('make sure to put columns')
+        }
+        // let compare = (comparison) ? comparison : ' and '
+        return this
+    }
     
     // //where arguments
     // static where (columns, values) {
@@ -94,7 +94,7 @@ class Model{
     }
 }
 
-Model.all().get()
+Model.specific(['id', 'created_at']).get()
 //remain to treate the string in values 
 //treat error if he enter many values which are noy in array
 // Model.specific('id', 'content').where(['id', 'content'], [1,'"first"']).get()
