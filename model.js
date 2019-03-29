@@ -13,6 +13,10 @@ class Model{
         return this
     }
 
+    static distinct(){
+        select += ' distinct '
+        return this;
+    }
 
     // select specific columns
     static specific(columns){
@@ -47,7 +51,6 @@ class Model{
                         column = columns[i].split(' ')
                         if (column.length == 2) {
                             comparator = column[0].replace('c_', ' ')
-                            
                             column = column[1]
                         }
                         i != 0 && i < columns.length ?  select += comparator : ''
@@ -60,8 +63,7 @@ class Model{
                                 console.log(sign)
                             }
                         }
-                        
-                        select += ' ' + column + sign +'  "' + value + '"'
+                        select += ' ' + column + sign +'  "' + value + '" '
                     }
                     console.log(select)
                 }else{
@@ -73,7 +75,7 @@ class Model{
                 this.error('not identic maybe array and value given')
             }
         }else{
-            tthis.error('make sure to put columns and values')
+            this.error('make sure to put columns and values')
         }
 
         return this
@@ -93,7 +95,4 @@ class Model{
     }
 }
 
-Model.all().where(['id', 'c_or content'], ['2', 'first']).get()
-//remain to treate the string in values 
-//treat error if he enter many values which are noy in array
-// Model.specific('id', 'content').where(['id', 'content'], [1,'"first"']).get()
+Model.distinct().specific(['content', 'id']).where(['id', 'c_or content'], ['s_<= 6', 'first']).get()
